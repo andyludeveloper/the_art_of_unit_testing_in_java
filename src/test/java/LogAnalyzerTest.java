@@ -2,6 +2,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 public class LogAnalyzerTest {
@@ -28,4 +29,23 @@ public class LogAnalyzerTest {
         analyzer.isValidLogFileName(null);
     }
 
+    @Test
+    public void isValidLogFileName_badFileName_WasLastFileNameValid_Return_False() {
+        givenFileName("badname.foo");
+        shouldBe(false);
+    }
+
+    @Test
+    public void isValidLogFileName_GoodFileName_WasLastFileNameValid_Return_True() {
+        givenFileName("goodfilename.slf");
+        shouldBe(true);
+    }
+
+    private void shouldBe(boolean expected) {
+        assertThat(analyzer.wasLastFileNameValid, is(expected));
+    }
+
+    private void givenFileName(String s) {
+        analyzer.isValidLogFileName(s);
+    }
 }
