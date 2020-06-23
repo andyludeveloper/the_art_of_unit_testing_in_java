@@ -1,7 +1,15 @@
 public class LogAnalyzer {
+    IExtensionManager fileExtensionManager;
+
+    public LogAnalyzer(IExtensionManager fileExtensionManager) {
+        this.fileExtensionManager = fileExtensionManager;
+    }
+
+    public LogAnalyzer() {
+        this.fileExtensionManager= new FileExtensionManager();
+    }
 
     public boolean isValidLogFileName(String fileName){
-        IExtensionManager fileExtensionManager= new FileExtensionManager();
         return fileExtensionManager.isValid(fileName);
     }
 }

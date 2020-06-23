@@ -5,33 +5,31 @@ import org.junit.rules.ExpectedException;
 import static org.junit.Assert.*;
 
 public class LogAnalyzerTest {
-    private final LogAnalyzer analyzer = new LogAnalyzer();
     @Test
-    public void isValidLogFileName_GoodExtensionLowercase_ReturnsTrue() {
-        boolean result = analyzer.isValidLogFileName("filewithgoodextension.slf");
+    public void isValidFileName_NameSupportedExtension_ReturnsTrue(){
+        FakeValidFakeExtensionManager manager = givenValidTrue();
+        LogAnalyzer analyzer = new LogAnalyzer(manager);
+        boolean result = analyzer.isValidLogFileName("short.ext");
         assertTrue(result);
     }
 
-    @Test
-    public void isValidLogFileName_GoodExtensionUppercase_ReturnsTrue() {
-        boolean result = analyzer.isValidLogFileName("filewithgoodextension.SLF");
-        assertTrue(result);
-    }
-
-    @Rule
-    public ExpectedException exceptionRule = ExpectedException.none();
-
-    @Test
-    public void isValidLogFileName_EmptyFileName_Throws() {
-        exceptionRule.expect(IllegalArgumentException.class);
-        exceptionRule.expectMessage("filename has to be provided");
-        analyzer.isValidLogFileName(null);
+    private FakeValidFakeExtensionManager givenValidTrue() {
+        FakeValidFakeExtensionManager manager =
+                new FakeValidFakeExtensionManager();
+        manager.setValid(true);
+        return manager;
     }
 }
 
-class AlwaysValidFakeExtensionManager implements IExtensionManager{
+class FakeValidFakeExtensionManager implements IExtensionManager{
+    boolean valid = false;
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
+
     @Override
     public boolean isValid(String fileName) {
-        return true;
+        return valid;
     }
 }
