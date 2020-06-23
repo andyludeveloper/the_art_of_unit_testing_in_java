@@ -5,6 +5,10 @@ public class LogAnalyzer {
         this.fileExtensionManager = fileExtensionManager;
     }
 
+    public void setFileExtensionManager(IExtensionManager manager){
+        this.fileExtensionManager = manager;
+    }
+
     public LogAnalyzer() {
         this.fileExtensionManager= new FileExtensionManager();
     }

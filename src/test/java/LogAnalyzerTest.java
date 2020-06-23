@@ -1,6 +1,4 @@
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
 
@@ -9,6 +7,15 @@ public class LogAnalyzerTest {
     public void isValidFileName_NameSupportedExtension_ReturnsTrue(){
         FakeValidFakeExtensionManager manager = givenValidTrue();
         LogAnalyzer analyzer = new LogAnalyzer(manager);
+        boolean result = analyzer.isValidLogFileName("short.ext");
+        assertTrue(result);
+    }
+
+    @Test
+    public void isValidFileName_NameSupportedExtension_by_property_setter_ReturnsTrue(){
+        FakeValidFakeExtensionManager manager = givenValidTrue();
+        LogAnalyzer analyzer = new LogAnalyzer();
+        analyzer.setFileExtensionManager(manager);
         boolean result = analyzer.isValidLogFileName("short.ext");
         assertTrue(result);
     }
