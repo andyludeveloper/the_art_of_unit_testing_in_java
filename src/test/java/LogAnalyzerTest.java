@@ -28,3 +28,10 @@ public class LogAnalyzerTest {
         analyzer.isValidLogFileName(null);
     }
 }
+
+class AlwaysValidFakeExtensionManager implements IExtensionManager{
+    @Override
+    public boolean isValid(String fileName) {
+        return true;
+    }
+}
