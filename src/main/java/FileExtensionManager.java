@@ -1,4 +1,5 @@
-public class FileExtensionManager {
+public class FileExtensionManager implements IExtensionManager {
+    @Override
     public boolean isValid(String fileName) {
         if(fileName==null){
             throw new IllegalArgumentException("filename has to be provided");
