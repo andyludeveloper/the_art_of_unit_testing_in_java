@@ -20,6 +20,17 @@ public class LogAnalyzerTest {
         assertTrue(result);
     }
 
+    @Test
+    public void isValidFileName_Factory_design_ReturnsTrue(){
+        FakeValidFakeExtensionManager manager = givenValidTrue();
+        ExtensionManagerFactory managerFactory = new ExtensionManagerFactory();
+        managerFactory.setManager(manager);
+
+        LogAnalyzer analyzer = new LogAnalyzer();
+        boolean result = analyzer.isValidLogFileName("short.ext");
+        assertTrue(result);
+    }
+
     private FakeValidFakeExtensionManager givenValidTrue() {
         FakeValidFakeExtensionManager manager =
                 new FakeValidFakeExtensionManager();
