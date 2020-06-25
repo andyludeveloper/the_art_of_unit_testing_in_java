@@ -31,10 +31,33 @@ public class LogAnalyzerTest {
         assertTrue(result);
     }
 
+    @Test
+    public void overrideTest() {
+        FakeValidFakeExtensionManager stub = new FakeValidFakeExtensionManager();
+        stub.valid = true;
+        TestableLogAnalyzer logan = new TestableLogAnalyzer(stub);
+        boolean result = logan.isValidLogFileName("file.ext");
+        assertTrue(result);
+    }
+
     private FakeValidFakeExtensionManager givenValidTrue() {
         FakeValidFakeExtensionManager manager =
                 new FakeValidFakeExtensionManager();
         manager.setValid(true);
+        return manager;
+    }
+}
+
+//Override factory
+class TestableLogAnalyzer extends LogAnalyzerUsingFactoryMethod{
+    public IExtensionManager manager;
+
+    public TestableLogAnalyzer(IExtensionManager manager) {
+        this.manager = manager;
+    }
+
+    @Override
+    protected IExtensionManager getManager() {
         return manager;
     }
 }
