@@ -33,9 +33,9 @@ public class LogAnalyzerTest {
 
     @Test
     public void overrideTest() {
-        FakeValidFakeExtensionManager stub = new FakeValidFakeExtensionManager();
-        stub.valid = true;
-        TestableLogAnalyzer logan = new TestableLogAnalyzer(stub);
+        TestableLogAnalyzer logan = new TestableLogAnalyzer();
+        logan.setSupported(true);
+
         boolean result = logan.isValidLogFileName("file.ext");
         assertTrue(result);
     }
@@ -50,16 +50,17 @@ public class LogAnalyzerTest {
 
 //Override factory
 class TestableLogAnalyzer extends LogAnalyzerUsingFactoryMethod{
-    public IExtensionManager manager;
+    private boolean isSupported;
 
-    public TestableLogAnalyzer(IExtensionManager manager) {
-        this.manager = manager;
+    public void setSupported(boolean supported) {
+        isSupported = supported;
     }
 
     @Override
-    protected IExtensionManager getManager() {
-        return manager;
+    protected boolean isValid(String filename) {
+        return isSupported;
     }
+
 }
 
 class FakeValidFakeExtensionManager implements IExtensionManager{

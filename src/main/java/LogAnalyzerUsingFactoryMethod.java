@@ -1,9 +1,11 @@
 public class LogAnalyzerUsingFactoryMethod {
     public boolean isValidLogFileName(String filename){
-        return getManager().isValid(filename);
+        return isValid(filename);
     }
 
-    protected IExtensionManager getManager() {
-        return new FileExtensionManager();
+    protected boolean isValid(String filename){
+        FileExtensionManager manager = new FileExtensionManager();
+        return manager.isValid(filename);
     }
+
 }
